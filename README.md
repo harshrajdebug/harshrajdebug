@@ -1,4 +1,4 @@
-### Harsh Raj
+### About me
 
 I work on Kubernetes internals and security, mostly in CNCF projects: controllers, admission, policy engines and autoscaling.
 
