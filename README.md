@@ -10,4 +10,4 @@ Some of my work:
 - Made the Kyverno CLI evaluate namespaced validating policies, which were passing while checking nothing ([#17608](https://github.com/kyverno/kyverno/pull/17608), backported in [#17612](https://github.com/kyverno/kyverno/pull/17612))
 - Built [sigstore-guard](https://github.com/harshrajdebug/sigstore-guard), an admission webhook that only lets in pods whose images are signed by an accepted signer
 
-<sub>B.Tech CSE (Cybersecurity and Forensics), UPES · harshrajdebug@gmail.com</sub>
+<sub>[harshrajdebug.in](https://harshrajdebug.in) · harshrajdebug@gmail.com</sub>
