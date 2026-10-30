@@ -1,36 +1,36 @@
-<p align="center">
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img alt="Harsh Raj. I find the bugs that hide in Kubernetes controllers, schedulers and policy engines, then fix them upstream. 17 merged pull requests across 7 projects, 21 more in review." src="assets/hero-light.svg" width="100%"></picture>
-</p>
+I go looking for the bugs that hide inside Kubernetes controllers, schedulers and policy engines: a crash loop set off by one typo, a rollback that reports Synced while the old version keeps running, a policy that passes because it never ran at all. Then I trace each one to its root, prove it, and fix it upstream.
 
-<p align="center"><img alt="Terminal running kubectl get fixes: nine merged fixes in Kyverno, KEDA, PipeCD, Volcano, Kubeflow, Prowler and kgateway, with the impact of each" src="assets/terminal.svg" width="100%"></p>
+So far that's **17 fixes merged** across [Kyverno](https://github.com/kyverno/kyverno/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), [PipeCD](https://github.com/pipe-cd/pipecd/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), [KEDA](https://github.com/kedacore/keda/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), [Volcano](https://github.com/volcano-sh/volcano/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), [Kubeflow](https://github.com/kubeflow/trainer/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), [kgateway](https://github.com/kgateway-dev/kgateway/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) and [Prowler](https://github.com/prowler-cloud/prowler/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged), with 21 more in review.
 
-<p align="center"><sub><b>Read the fixes</b> · <a href="https://github.com/kyverno/kyverno/pull/17608">kyverno#17608</a> · <a href="https://github.com/kedacore/keda/pull/8193">keda#8193</a> · <a href="https://github.com/pipe-cd/pipecd/pull/7412">pipecd#7412</a> · <a href="https://github.com/volcano-sh/volcano/pull/6057">volcano#6057</a> · <a href="https://github.com/pipe-cd/pipecd/pull/7440">pipecd#7440</a> · <a href="https://github.com/kyverno/kyverno/pull/17620">kyverno#17620</a> · <a href="https://github.com/kubeflow/trainer/pull/4155">trainer#4155</a> · <a href="https://github.com/prowler-cloud/prowler/pull/13191">prowler#13191</a> · <a href="https://github.com/kgateway-dev/kgateway/pull/14760">kgateway#14760</a></sub></p>
+#### A few I'm glad I caught
 
-<p align="center"><sub>Also merged: Kyverno <a href="https://github.com/kyverno/kyverno/pull/17838">#17838</a>, <a href="https://github.com/kyverno/kyverno/pull/17916">#17916</a> and the backports <a href="https://github.com/kyverno/kyverno/pull/17612">#17612</a>, <a href="https://github.com/kyverno/kyverno/pull/18156">#18156</a> · KEDA <a href="https://github.com/kedacore/keda/pull/8213">#8213</a> · PipeCD <a href="https://github.com/pipe-cd/pipecd/pull/7463">#7463</a>, <a href="https://github.com/pipe-cd/pipecd/pull/7477">#7477</a>, <a href="https://github.com/pipe-cd/pipecd/pull/7525">#7525</a></sub></p>
+- **One policy could take down Kyverno's webhook.** A MutatingPolicy whose JSON patch held a list of object initializers panicked the process, and every admission request it was serving failed with it ([#17620](https://github.com/kyverno/kyverno/pull/17620), backported in [#18156](https://github.com/kyverno/kyverno/pull/18156)).
+- **Kyverno's CLI approved what it never checked.** Namespaced validating policies passed without being evaluated ([#17608](https://github.com/kyverno/kyverno/pull/17608), backported in [#17612](https://github.com/kyverno/kyverno/pull/17612)), and every MutatingPolicy result was counted twice ([#17838](https://github.com/kyverno/kyverno/pull/17838)).
+- **kgateway turned away SPIFFE backends.** Every SAN entry was compared as a DNS name, so a backend identified by a URI, IP or email got a 503 on every connection while its policy still reported Accepted ([#14760](https://github.com/kgateway-dev/kgateway/pull/14760)).
+- **KEDA leaked gRPC connections.** The external scaler kept its pooled connections open after the last scaler using them was gone ([#8193](https://github.com/kedacore/keda/pull/8193), tests in [#8213](https://github.com/kedacore/keda/pull/8213)).
+- **A PipeCD rollback that said it was done.** ECS rollbacks reported Synced while the service was still running the old revision ([#7412](https://github.com/pipe-cd/pipecd/pull/7412)).
+- **Cancelling a PipeCD Terraform stage locked the state.** The apply was killed mid-run and the remote state lock stayed held; now the stage interrupts Terraform so it can let go cleanly ([#7440](https://github.com/pipe-cd/pipecd/pull/7440)).
+- **One typo crash-looped Volcano.** A missing or misspelled UFM endpoint brought down the controller manager, and the Job, Queue and PodGroup controllers went down with it ([#6057](https://github.com/volcano-sh/volcano/pull/6057)).
+- **Kubeflow accepted jobs that could never run.** Invalid OptimizationJob names got through, and long names produced colliding service names ([#4155](https://github.com/kubeflow/trainer/pull/4155)).
+- **Prowler missed a wide-open door.** A security group allowing 0.0.0.0/1 and 128.0.0.0/1 lets in the entire internet, yet it passed the internet-exposure checks ([#13191](https://github.com/prowler-cloud/prowler/pull/13191)).
 
 <details>
-<summary><b>In review</b> (21 open PRs)</summary>
+<summary><b>Still in review</b> (21 open PRs)</summary>
 <br>
 
 - **PipeCD:** restarting piped mid-deployment cancelled it and ran the rollback ([#7443](https://github.com/pipe-cd/pipecd/pull/7443)); one failing cluster cancelled every other target of a multi-cluster stage ([#7495](https://github.com/pipe-cd/pipecd/pull/7495)); a stage's skip config was applied to rollback stages by position ([#7499](https://github.com/pipe-cd/pipecd/pull/7499)); renaming the app config file left every deployment pending forever ([#7501](https://github.com/pipe-cd/pipecd/pull/7501)); plus [#7527](https://github.com/pipe-cd/pipecd/pull/7527) and [#7528](https://github.com/pipe-cd/pipecd/pull/7528)
 - **Volcano:** the scheduler config from the v1.15.0 release notes made gang reclaim evict the same job endlessly ([#6046](https://github.com/volcano-sh/volcano/pull/6046)); a negative minResources panicked the scheduler ([#6189](https://github.com/volcano-sh/volcano/pull/6189)); plus [#6002](https://github.com/volcano-sh/volcano/pull/6002), [#6064](https://github.com/volcano-sh/volcano/pull/6064) and [#6120](https://github.com/volcano-sh/volcano/pull/6120)
-- **Kyverno:** namespaced policies applied outside their namespace in the CLI ([#17831](https://github.com/kyverno/kyverno/pull/17831)), and skipping VAP generation when an exception needs Kyverno CEL ([#18251](https://github.com/kyverno/kyverno/pull/18251))
+- **Kyverno:** the CLI applied namespaced policies outside their own namespace ([#17831](https://github.com/kyverno/kyverno/pull/17831)); skip VAP generation when an exception needs Kyverno CEL ([#18251](https://github.com/kyverno/kyverno/pull/18251))
 - **Kubeflow Trainer:** TrainJobs that pass admission but whose Pods can never start ([#4293](https://github.com/kubeflow/trainer/pull/4293))
-- **KubeEdge:** edge nodes discarding still-valid cached service account tokens while offline ([#7306](https://github.com/kubeedge/kubeedge/pull/7306), [#7307](https://github.com/kubeedge/kubeedge/pull/7307))
+- **KubeEdge:** offline edge nodes throwing away service account tokens that were still valid ([#7306](https://github.com/kubeedge/kubeedge/pull/7306), [#7307](https://github.com/kubeedge/kubeedge/pull/7307))
 - **Others:** [kgateway #14749](https://github.com/kgateway-dev/kgateway/pull/14749), [OpenKruise #1001](https://github.com/openkruise/agents/pull/1001), [Prowler #13206](https://github.com/prowler-cloud/prowler/pull/13206), [Trivy checks #657](https://github.com/aquasecurity/trivy-checks/pull/657), [Kubernetes CSI docs #646](https://github.com/kubernetes-csi/docs/pull/646)
 
 </details>
 
-<br>
+#### Things I've built
 
-<p align="center">
-<a href="https://github.com/harshrajdebug/sigstore-guard"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-sigstore-guard-dark.svg"><img alt="sigstore-guard: rejects pods whose images carry no Sigstore signature from an accepted signer" src="assets/card-sigstore-guard-light.svg" width="32%"></picture></a>
-<a href="https://github.com/harshrajdebug/aws-misconfig-scanner"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-aws-misconfig-scanner-dark.svg"><img alt="aws-misconfig-scanner: read-only AWS scanner with 32 checks mapped to CIS and Security Hub" src="assets/card-aws-misconfig-scanner-light.svg" width="32%"></picture></a>
-<a href="https://github.com/harshrajdebug/phishnet"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-phishnet-dark.svg"><img alt="phishnet: cross-modal attention model for explainable, real-time phishing detection" src="assets/card-phishnet-light.svg" width="32%"></picture></a>
-</p>
+- [**sigstore-guard**](https://github.com/harshrajdebug/sigstore-guard): an admission webhook that keeps a pod out of the cluster unless its image is signed by a signer you trust
+- [**aws-misconfig-scanner**](https://github.com/harshrajdebug/aws-misconfig-scanner): a read-only AWS scanner with 32 checks mapped to CIS and Security Hub, tested against a live account
+- [**phishnet**](https://github.com/harshrajdebug/phishnet): a cross-modal attention model that flags phishing pages in real time and explains why
 
-<p align="center">
-<a href="https://harshrajdebug.in"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-web-dark.svg"><img alt="harshrajdebug.in" src="assets/contact-web-light.svg"></picture></a>
-<a href="mailto:harshrajdebug@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-mail-dark.svg"><img alt="harshrajdebug@gmail.com" src="assets/contact-mail-light.svg"></picture></a>
-<a href="https://www.linkedin.com/in/harsh2789"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-in-dark.svg"><img alt="LinkedIn: harsh2789" src="assets/contact-in-light.svg"></picture></a>
-</p>
+<sub>[harshrajdebug.in](https://harshrajdebug.in) · harshrajdebug@gmail.com · [LinkedIn](https://www.linkedin.com/in/harsh2789)</sub>
