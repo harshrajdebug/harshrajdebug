@@ -1,50 +1,12 @@
-<h1 align="center">Harsh Raj</h1>
-
-<p align="center">I find and fix bugs in Kubernetes controllers, schedulers, admission webhooks and policy engines, mostly in CNCF projects.</p>
-
 <p align="center">
-  <a href="https://harshrajdebug.in"><img alt="Website" src="https://img.shields.io/badge/harshrajdebug.in-1f6feb?style=flat-square&logo=googlechrome&logoColor=white"></a>
-  <a href="mailto:harshrajdebug@gmail.com"><img alt="Email" src="https://img.shields.io/badge/harshrajdebug@gmail.com-c5221f?style=flat-square&logo=gmail&logoColor=white"></a>
-  <a href="https://www.linkedin.com/in/harsh2789"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-0a66c2?style=flat-square&logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nd2hpdGUnPjxyZWN0IHg9JzMnIHk9JzknIHdpZHRoPSc0JyBoZWlnaHQ9JzEyJy8%2BPGNpcmNsZSBjeD0nNScgY3k9JzUnIHI9JzIuMicvPjxwYXRoIGQ9J00xMCA5aDMuOHYxLjdjLjYtMS4xIDItMiA0LTIgNCAwIDQuNyAyLjYgNC43IDZWMjFoLTR2LTUuNWMwLTEuNCAwLTMuMS0xLjktMy4xcy0yLjIgMS41LTIuMiAzVjIxaC00eicvPjwvc3ZnPg%3D%3D"></a>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img alt="Harsh Raj. I find the bugs that hide in Kubernetes controllers, schedulers and policy engines, then fix them upstream. 17 merged pull requests across 7 projects, 21 more in review." src="assets/hero-light.svg" width="100%"></picture>
 </p>
 
-<p align="center"><b>17 merged PRs</b> across <b>7 projects</b> · <b>21 more in review</b></p>
+<p align="center"><img alt="Terminal running kubectl get fixes: nine merged fixes in Kyverno, KEDA, PipeCD, Volcano, Kubeflow, Prowler and kgateway, with the impact of each" src="assets/terminal.svg" width="100%"></p>
 
-<p align="center">
-  <img alt="Go" src="https://img.shields.io/badge/Go-00add8?style=flat-square&logo=go&logoColor=white">
-  <img alt="Kubernetes" src="https://img.shields.io/badge/Kubernetes-326ce5?style=flat-square&logo=kubernetes&logoColor=white">
-  <img alt="Python" src="https://img.shields.io/badge/Python-3776ab?style=flat-square&logo=python&logoColor=white">
-  <img alt="AWS" src="https://img.shields.io/badge/AWS-232f3e?style=flat-square">
-  <img alt="Envoy" src="https://img.shields.io/badge/Envoy-ac6199?style=flat-square&logo=envoyproxy&logoColor=white">
-  <img alt="Terraform" src="https://img.shields.io/badge/Terraform-7b42bc?style=flat-square&logo=terraform&logoColor=white">
-  <img alt="Helm" src="https://img.shields.io/badge/Helm-0f1689?style=flat-square&logo=helm&logoColor=white">
-</p>
+<p align="center"><sub><b>Read the fixes</b> · <a href="https://github.com/kyverno/kyverno/pull/17608">kyverno#17608</a> · <a href="https://github.com/kedacore/keda/pull/8193">keda#8193</a> · <a href="https://github.com/pipe-cd/pipecd/pull/7412">pipecd#7412</a> · <a href="https://github.com/volcano-sh/volcano/pull/6057">volcano#6057</a> · <a href="https://github.com/pipe-cd/pipecd/pull/7440">pipecd#7440</a> · <a href="https://github.com/kyverno/kyverno/pull/17620">kyverno#17620</a> · <a href="https://github.com/kubeflow/trainer/pull/4155">trainer#4155</a> · <a href="https://github.com/prowler-cloud/prowler/pull/13191">prowler#13191</a> · <a href="https://github.com/kgateway-dev/kgateway/pull/14760">kgateway#14760</a></sub></p>
 
----
-
-### Merged upstream
-
-| Project | Merged | What the fixes cover |
-|:--|:-:|:--|
-| [Kyverno](https://github.com/kyverno/kyverno/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 6 | Webhook crash on MutatingPolicy patches, CLI policy evaluation, conformance tests, two release backports |
-| [PipeCD](https://github.com/pipe-cd/pipecd/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 5 | ECS rollbacks, Terraform cancel and drift detection, Helm chart repos, multi-cluster kubectl versions |
-| [KEDA](https://github.com/kedacore/keda/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 2 | gRPC connection leak in the external scaler, with tests |
-| [Volcano](https://github.com/volcano-sh/volcano/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 1 | Controller manager crash loop on a bad HyperNode discovery config |
-| [Kubeflow Trainer](https://github.com/kubeflow/trainer/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 1 | OptimizationJob name validation and service name collisions |
-| [kgateway](https://github.com/kgateway-dev/kgateway/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 1 | Backend TLS SAN verification |
-| [Prowler](https://github.com/prowler-cloud/prowler/pulls?q=is%3Apr+author%3Aharshrajdebug+is%3Amerged) | 1 | Security groups that are open to the internet without listing 0.0.0.0/0 |
-
-### Selected fixes
-
-- **Kyverno webhook crash.** One MutatingPolicy whose JSON patch held a list of object initializers panicked Kyverno, taking down the mutating webhook and failing every affected admission request ([#17620](https://github.com/kyverno/kyverno/pull/17620), backported in [#18156](https://github.com/kyverno/kyverno/pull/18156)).
-- **Kyverno CLI checking nothing.** The CLI passed namespaced validating policies without evaluating them ([#17608](https://github.com/kyverno/kyverno/pull/17608), backported in [#17612](https://github.com/kyverno/kyverno/pull/17612)), and counted each MutatingPolicy result twice ([#17838](https://github.com/kyverno/kyverno/pull/17838)).
-- **kgateway TLS to SPIFFE backends.** SAN entries were matched as DNS names only, so backends identified by a URI, IP or email got a 503 on every connection while the policy reported Accepted ([#14760](https://github.com/kgateway-dev/kgateway/pull/14760)).
-- **KEDA connection leak.** The external scaler kept pooled gRPC connections open after the last scaler using them closed ([#8193](https://github.com/kedacore/keda/pull/8193), tests in [#8213](https://github.com/kedacore/keda/pull/8213)).
-- **PipeCD ECS rollbacks.** A rollback reported Synced while the service still ran the old revision ([#7412](https://github.com/pipe-cd/pipecd/pull/7412)).
-- **PipeCD Terraform state locks.** Cancelling a stage killed the apply and left the remote state lock held; it now interrupts the apply so the lock is released ([#7440](https://github.com/pipe-cd/pipecd/pull/7440)).
-- **Volcano controller crash loop.** A missing or misspelled UFM endpoint crash-looped the controller manager, taking the Job, Queue and PodGroup controllers down with it ([#6057](https://github.com/volcano-sh/volcano/pull/6057)).
-- **Kubeflow OptimizationJobs that never ran.** Invalid names were accepted, and long names produced colliding algorithm service names ([#4155](https://github.com/kubeflow/trainer/pull/4155)).
-- **Prowler missed open security groups.** A rule allowing 0.0.0.0/1 plus 128.0.0.0/1 accepts every address but passed the internet-exposure checks ([#13191](https://github.com/prowler-cloud/prowler/pull/13191)).
+<p align="center"><sub>Also merged: Kyverno <a href="https://github.com/kyverno/kyverno/pull/17838">#17838</a>, <a href="https://github.com/kyverno/kyverno/pull/17916">#17916</a> and the backports <a href="https://github.com/kyverno/kyverno/pull/17612">#17612</a>, <a href="https://github.com/kyverno/kyverno/pull/18156">#18156</a> · KEDA <a href="https://github.com/kedacore/keda/pull/8213">#8213</a> · PipeCD <a href="https://github.com/pipe-cd/pipecd/pull/7463">#7463</a>, <a href="https://github.com/pipe-cd/pipecd/pull/7477">#7477</a>, <a href="https://github.com/pipe-cd/pipecd/pull/7525">#7525</a></sub></p>
 
 <details>
 <summary><b>In review</b> (21 open PRs)</summary>
@@ -59,10 +21,16 @@
 
 </details>
 
-### Projects
+<br>
 
-| Project | What it does |
-|:--|:--|
-| [**sigstore-guard**](https://github.com/harshrajdebug/sigstore-guard) | Kubernetes admission webhook that only admits pods whose images are signed by an accepted Sigstore signer |
-| [**aws-misconfig-scanner**](https://github.com/harshrajdebug/aws-misconfig-scanner) | Read-only AWS scanner with 32 checks mapped to CIS AWS Foundations and Security Hub, validated on a live account |
-| [**phishnet**](https://github.com/harshrajdebug/phishnet) | Cross-modal attention model for explainable, real-time phishing detection |
+<p align="center">
+<a href="https://github.com/harshrajdebug/sigstore-guard"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-sigstore-guard-dark.svg"><img alt="sigstore-guard: rejects pods whose images carry no Sigstore signature from an accepted signer" src="assets/card-sigstore-guard-light.svg" width="32%"></picture></a>
+<a href="https://github.com/harshrajdebug/aws-misconfig-scanner"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-aws-misconfig-scanner-dark.svg"><img alt="aws-misconfig-scanner: read-only AWS scanner with 32 checks mapped to CIS and Security Hub" src="assets/card-aws-misconfig-scanner-light.svg" width="32%"></picture></a>
+<a href="https://github.com/harshrajdebug/phishnet"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/card-phishnet-dark.svg"><img alt="phishnet: cross-modal attention model for explainable, real-time phishing detection" src="assets/card-phishnet-light.svg" width="32%"></picture></a>
+</p>
+
+<p align="center">
+<a href="https://harshrajdebug.in"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-web-dark.svg"><img alt="harshrajdebug.in" src="assets/contact-web-light.svg"></picture></a>
+<a href="mailto:harshrajdebug@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-mail-dark.svg"><img alt="harshrajdebug@gmail.com" src="assets/contact-mail-light.svg"></picture></a>
+<a href="https://www.linkedin.com/in/harsh2789"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-in-dark.svg"><img alt="LinkedIn: harsh2789" src="assets/contact-in-light.svg"></picture></a>
+</p>
