@@ -61,7 +61,7 @@
 
 ### Projects
 
-| | |
+| Project | What it does |
 |:--|:--|
 | [**sigstore-guard**](https://github.com/harshrajdebug/sigstore-guard) | Kubernetes admission webhook that only admits pods whose images are signed by an accepted Sigstore signer |
 | [**aws-misconfig-scanner**](https://github.com/harshrajdebug/aws-misconfig-scanner) | Read-only AWS scanner with 32 checks mapped to CIS AWS Foundations and Security Hub, validated on a live account |
